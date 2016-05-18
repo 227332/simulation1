@@ -12,8 +12,21 @@
 
 package sim;
 
-public class Evento implements Comparable<Evento> {
+/*
+ * La classe Evento deve implementare l'interface Comparable perchè ha bisogno di avere una relazione
+ * d'ordine che sfrutterò poi nella coda prioritaria EventList
+ */
 
+public class Evento implements Comparable<Evento> {
+	public enum TipoEvento {
+		PAZIENTE_ARRIVA, PAZIENTE_GUARISCE, PAZIENTE_MUORE
+	}
+
+	protected long tempo;
+	protected TipoEvento tipo;
+	protected int dato; //dato è in pratica l'id del paziente coinvolto in tale oggetto evento
+	
+	
 	public int getDato() {
 		return dato;
 	}
@@ -22,14 +35,6 @@ public class Evento implements Comparable<Evento> {
 	public String toString() {
 		return "Evento [tempo=" + tempo + ", tipo=" + tipo + ", dato=" + dato + "]";
 	}
-
-	public enum TipoEvento {
-		PAZIENTE_ARRIVA, PAZIENTE_GUARISCE, PAZIENTE_MUORE
-	}
-
-	protected long tempo;
-	protected TipoEvento tipo;
-	protected int dato;
 
 	public long getTempo() {
 		return tempo;
@@ -46,9 +51,14 @@ public class Evento implements Comparable<Evento> {
 		this.dato = dato;
 	}
 
+	
+	/*
+	 * (non-Javadoc)
+	 * Voglio che venga prima l'evento con il tempo minore
+	 */
 	@Override
-	public int compareTo(Evento arg0) {
-		return Long.compare(this.tempo, arg0.tempo);
+	public int compareTo(Evento event) {
+		return Long.compare(this.tempo, event.tempo);
 	}
 
 

@@ -13,14 +13,21 @@
 package sim;
 
 public class Paziente implements Comparable<Paziente> {
+	//RICORDA: così si definisce un tipo enumerativo!!!
 	public enum StatoPaziente {
 		ROSSO, GIALLO, VERDE, BIANCO, IN_CURA, SALVO, NERO
 	};
 	
-	
-
 	private int id;
 	private StatoPaziente stato;
+	
+	
+
+	public Paziente(int id, StatoPaziente stato) {
+		super();
+		this.id = id;
+		this.stato = stato;
+	}
 
 	@Override
 	public int hashCode() {
@@ -58,12 +65,12 @@ public class Paziente implements Comparable<Paziente> {
 		return "Paziente [id=" + id + ", stato=" + stato + "]";
 	}
 
-	public Paziente(int id, StatoPaziente stato) {
-		super();
-		this.id = id;
-		this.stato = stato;
-	}
-
+	/*
+	 * devo dare priorità al paziente in base al suo stato, che è un tipo enum!
+	 * Per fare ciò uso il metodo ordinal() dell'enum, il quale restituisce la posizione
+	 * 'its position in its enum declaration, where the initial constant is assigned an 
+	 * ordinal of zero'
+	 */
 	@Override
 	public int compareTo(Paziente arg0) {
 		return Integer.compare(this.getStato().ordinal(), arg0.getStato().ordinal());
